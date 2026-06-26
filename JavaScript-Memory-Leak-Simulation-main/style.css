@@ -1,0 +1,189 @@
+@import url('https://fonts.cdnfonts.com/css/bebas-neue');
+@import url('https://fonts.cdnfonts.com/css/poppins');
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BACKGROUND */
+body {
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url("bg2.avif") center/cover no-repeat;
+    filter: blur(3px) brightness(0.3);
+    transform: scale(1.08);
+    animation: classyDrift 22s ease-in-out alternate infinite;
+    z-index: -1;
+}
+
+/* HEADER */
+.header-section {
+    width: min(1100px, 90vw);
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.header-section h2 {
+    font-family: "Bebas Neue";
+    font-size: 3.5rem;
+    letter-spacing: 2px;
+}
+
+.header-section p {
+    opacity: 0.85;
+}
+
+/* CONTAINER */
+.container {
+    width: min(1100px, 95vw);
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+/* TOOL CARD (glassmorphic) */
+.tool-card {
+    width: 95%;
+    max-width: 850px;
+    padding: 28px;
+
+    background: rgba(15, 15, 15, 0.85);
+    backdrop-filter: blur(14px);
+
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.06);
+
+    box-shadow: 0 20px 65px rgba(0,0,0,0.55);
+    text-align: center;
+
+    animation: glowPulse 4s infinite ease-in-out, classyEnter 0.9s ease-out;
+    transform-origin: center;
+    will-change: transform;
+}
+
+/* TOOL CARD HOVER */
+.tool-card:hover {
+    transform: perspective(900px) rotateX(1.5deg) rotateY(1.5deg);
+}
+
+/* CARD TITLE */
+.tool-card h3 {
+    font-family: "Bebas Neue";
+    font-size: 2.3rem;
+    margin-bottom: 15px;
+}
+
+/* BUTTONS */
+.btn {
+    margin-top: 20px;
+    padding: 14px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background: #e94560;
+    border-radius: 12px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: 0.25s cubic-bezier(0.16,1,0.3,1);
+}
+
+.btn:hover {
+    animation: wiggle 0.25s ease-in-out;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 10px;
+    color: #ccc;
+}
+
+/* ANIMATIONS */
+@keyframes classyEnter {
+    from { opacity: 0; transform: translateY(20px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes glowPulse {
+    0% { box-shadow: 0 0 15px rgba(233,69,96,0.18); }
+    50% { box-shadow: 0 0 28px rgba(233,69,96,0.40); }
+    100% { box-shadow: 0 0 15px rgba(233,69,96,0.18); }
+}
+
+@keyframes classyDrift {
+    from { transform: scale(1.12) translateX(-12px); }
+    to { transform: scale(1.12) translateX(12px); }
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: translateY(-2px) rotate(0); }
+    50% { transform: translateY(-4px) rotate(1.2deg); }
+}
+
+/* FINAL — force-floating home button (bottom-right) */
+.home-btn {
+  position: fixed !important;   /* must be fixed relative to viewport */
+  top: 30px !important;
+  right: 30px !important;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+
+  background: rgba(15, 15, 15, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 1rem;
+  text-decoration: none;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6), 0 0 18px rgba(233,69,96,0.18);
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+  z-index: 2147483647; /* highest possible so nothing covers it */
+  pointer-events: auto;
+}
+
+/* Hover / focus */
+.home-btn:hover,
+.home-btn:focus {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.65), 0 0 30px rgba(233,69,96,0.40);
+  background: rgba(20,20,20,0.85);
+}
+
+/* Icon inside */
+.home-btn svg,
+.home-btn .icon {
+  width: 26px;
+  height: 26px;
+  display: block;
+  fill: #fff;
+  line-height: 1;
+}
+
+/* Keep text off small screens if accidentally added */
+.home-btn span {
+  display: none;
+}

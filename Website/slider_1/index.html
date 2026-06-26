@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <main>
+        <header>
+            <figure class="logo">
+                <img src="img/logo.png" alt="">
+            </figure>
+            <nav>
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
+                </svg>
+            </nav>
+        </header>
+
+        <!-- HERO SECTION (keeps class .slider) -->
+        <section class="slider hero-slider">
+            <div class="list">
+                <div class="item active">
+                    <div class="image" style="--url: url('bg2.avif')"></div>
+                    <div class="content">
+                        <h2>THE STORY OF LEAKS</h2>
+                        <p>
+                            It all starts with a tiny mistake... <br>a file shared, a name unredacted.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="arrows"> 
+                <button id="prev">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+                    </svg>
+                </button>
+                <button id="next">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section class="about">
+            <h2>What is the Leak Simulation & Redaction Tool?</h2>
+            <p>
+                Every photo, document, or file can hide secrets — from GPS locations to author names.  
+                This project uncovers how information leaks through metadata and poor redaction,  
+                and helps users learn how to protect their privacy.
+            </p>
+        </section>
+
+        <!-- TOOL CARDS -->
+        <section class="tools">
+            <h2>Explore the Tools</h2>
+            <div class="tool-grid">
+
+                <div class="tool-card" onclick="window.location.href='http://127.0.0.1:5001'">
+                    <img src="metadata_icon.png" alt="Metadata Tool">
+                    <h3>Image Metadata Analyzer</h3>
+                    <p>Upload any photo to reveal hidden GPS, camera data, and more.</p>
+                </div>
+
+                <div class="tool-card" onclick="window.location.href='http://127.0.0.1:5003'">
+                    <img src="redact_icon.webp" alt="PDF Redactor">
+                    <h3>Redaction Tool</h3>
+                    <p>Identify and securely remove sensitive data from your documents.</p>
+                </div>
+
+                <div class="tool-card" onclick="window.location.href='http://127.0.0.1:5005/'">
+                    <img src="leak_icon.jpg" alt="Leak Simulator">
+                    <h3>Leak Simulation</h3>
+                    <p>See how small mistakes can expose big secrets through metadata leaks.</p>
+                </div>
+
+            </div>
+        </section>
+
+
+        <section class="stats">
+            <h2>The Hidden Risks of Metadata</h2>
+            <div class="stat-grid">
+                <div><h3>93%</h3><p>of people share photos with hidden GPS tags</p></div>
+                <div><h3>68%</h3><p>of documents retain author information</p></div>
+                <div><h3>45%</h3><p>of redacted PDFs can be reverse-engineered</p></div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 Leak Simulation & Redaction Tool | Made with ❤️ by Ishani Prajapati</p>
+        </footer>
+
+    </main>
+
+    <script src="app.js"></script>
+
+    <!-- Fade-out script targets ONLY the hero slider -->
+    <script>
+        window.addEventListener("scroll", function() {
+            const slider = document.querySelector(".hero-slider");
+            const scrollY = window.scrollY;
+            const fadeDistance = 400;
+
+            let newOpacity = 1 - scrollY / fadeDistance;
+            if (newOpacity < 0) newOpacity = 0;
+
+            slider.style.opacity = newOpacity;
+        });
+    </script>
+
+</body>
+</html>

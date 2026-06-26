@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redaction Tools</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <a href="/slider/index.html" class="home-btn">Home</a>
+
+    <div class="container">
+
+        <!-- ABOUT -->
+        <div class="header-section">
+            <h2>REDACTION TOOLS</h2>
+            <p>Clean emails, names, phone numbers, metadata and links from text and PDFs.</p>
+        </div>
+
+
+        <!-- TOOLS SECTION -->
+        <div class="tools">
+            <div class="tool-grid">
+
+                <!-- TEXT REDACTION CARD -->
+                <div class="tool-card">
+                    <h3>Text Redaction</h3>
+                    <p>Clean emails, names, phone numbers and links from text.</p>
+
+                    <form method="POST">
+                        <textarea name="text"
+                                placeholder="Enter text here..."
+                                rows="7"></textarea>
+
+                        <button class="btn" type="submit"
+                                name="action" value="redact_text">Redact Text</button>
+                    </form>
+
+                    {% if redacted_text %}
+                    <h4>Result:</h4>
+                    <pre style="white-space: pre-wrap;">{{ redacted_text }}</pre>
+                    {% endif %}
+                </div>
+
+                <!-- PDF REDACTION CARD -->
+                <div class="tool-card">
+                    <h3>PDF Redaction</h3>
+                    <p>Upload a PDF to remove metadata and sensitive content.</p>
+
+                    <form method="POST" enctype="multipart/form-data">
+                        <input type="file" name="pdf" accept=".pdf" required>
+
+                        <button class="btn" type="submit"
+                                name="action" value="redact_pdf">Redact PDF</button>
+                    </form>
+
+                    {% if pdf_ready %}
+                    <a class="download-link" href="{{ pdf_ready }}" download>
+                        Download Redacted PDF
+                    </a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <p>© Redaction Tool | Made with ❤️ by Ishani Prajapati</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

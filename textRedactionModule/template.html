@@ -1,0 +1,78 @@
+<!-- templates/text_redact.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Text Redaction — Leak Tool</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body{font-family: Arial, Helvetica, sans-serif; background:#0b0b0b; color:#eee; margin:0; padding:24px}
+    .wrap{max-width:1100px;margin:0 auto}
+    h1{font-size:1.6rem;margin-bottom:10px}
+    form textarea{width:100%;height:160px;padding:12px;border-radius:8px;border:1px solid #333;background:#111;color:#fff}
+    .btn{background:#2ea44f;color:#fff;padding:10px 14px;border-radius:8px;border:none;cursor:pointer}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+    .card{background:#111;padding:16px;border-radius:10px;border:1px solid #222}
+    .entities table{width:100%;border-collapse:collapse}
+    .entities th,.entities td{padding:8px;border-bottom:1px solid #222;text-align:left;font-size:0.95rem}
+    .label{display:inline-block;padding:4px 8px;border-radius:6px;background:#1f6feb;color:white;font-weight:600}
+    .summary{margin-top:10px;color:#bbb}
+    .small{font-size:0.9rem;color:#bbb}
+    pre{white-space:pre-wrap;word-break:break-word;color:#e6eef8}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Text Redaction — Detect & Securely Remove PII</h1>
+    <p class="small">Paste text below. Click <strong>Redact</strong>. This securely removes detected items (not just visually hides them).</p>
+
+    <form method="POST">
+      <textarea name="text" placeholder="Paste document text here...">{{ result.original if result else '' }}</textarea>
+      <div style="margin-top:10px">
+        <button class="btn" type="submit">Redact</button>
+      </div>
+    </form>
+
+    {% if result %}
+    <div class="grid">
+      <div class="card">
+        <h3>Original</h3>
+        <pre>{{ result.original }}</pre>
+      </div>
+
+      <div class="card">
+        <h3>Redacted (secure)</h3>
+        <pre>{{ result.redacted }}</pre>
+      </div>
+    </div>
+
+    <div class="card entities" style="margin-top:16px">
+      <h3>Detected Entities <span class="small">({{ result.entities|length }})</span></h3>
+      {% if result.entities %}
+      <table>
+        <thead><tr><th>Type</th><th>Match</th><th>Span</th><th>Label</th></tr></thead>
+        <tbody>
+          {% for e in result.entities %}
+          <tr>
+            <td><span class="label">{{ e.type }}</span></td>
+            <td>{{ e.match }}</td>
+            <td>{{ e.start }}–{{ e.end }}</td>
+            <td>{{ e.redaction_label }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <p class="summary">Counts:
+        {% for k,v in result.counts.items() %}
+          <strong>{{ k }}</strong>: {{ v }}&nbsp;&nbsp;
+        {% endfor %}
+      </p>
+      {% else %}
+        <p class="small">No PII detected.</p>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>
